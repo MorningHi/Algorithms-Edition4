@@ -1,41 +1,34 @@
 package sort;
 
-/**
+import java.util.Arrays;
 
-* @author: bingo 
-* @date:   2018年12月19日
-*/
+public class SelectionSort {
 
-public class SelectionSort
-{
-    public void sort(Comparable[] a)
-    {
-        int lenght = a.length;  //数组长度
-        for(int i = 0; i < lenght; i++)
-        {
-            int min = i; //最小元素的索引
-            for(int j = i+1; j < lenght; j++)
-            {
-                if(less(a[j], a[min]))  //判断a[i]和a[j]大小关系
-                {
+    public static void main(String[] args) {
+        int[] arr = {3, 12, 6, 7, 40, 35, 8, 4, 22};
+        
+        selection_sort(arr);
+        System.out.println(Arrays.toString(arr));
+
+    }
+    
+    public static void selection_sort(int[]  arr){
+        // 数组为空或者长度为1不需要排序
+        if(arr == null || arr.length < 2){
+            return;
+        }
+        for(int i = 0; i < arr.length - 1; i++){
+            int min = i;  // 记录最小值的索引
+            for(int j = i + 1; j < arr.length; j++){
+                if(arr[j] < arr[min]){
                     min = j;
                 }
             }
-            swap(a, i, min);  //交换a[i]和a[min]
+            // 交换当前值和最小值
+            int temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
         }
     }
-    
-    public boolean less(Comparable a, Comparable b)
-    {
-        // a < b返回True
-        return a.compareTo(b) < 0;
-    }
-    
-    public void swap(Comparable[] a, int i, int j)
-    {
-        Comparable temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-}
 
+}
