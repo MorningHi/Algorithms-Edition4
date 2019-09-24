@@ -39,10 +39,10 @@ public class BinarySearch {
         if(hi <= lo)   return (arr[lo] == key) ? lo : -1;
         int mid = lo + (hi - lo) / 2;
         if(arr[mid] > key){
-            return search(arr, key, lo, mid-1);
+            return search(arr, key, lo, mid-1);   // 搜索前半部分
         }
         else if(arr[mid] < key){
-            return search(arr, key, mid+1, hi);
+            return search(arr, key, mid+1, hi);   // 搜索后半部分
         }
         else return mid;
     }

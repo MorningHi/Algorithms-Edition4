@@ -26,10 +26,15 @@ public class BinarySearchTree {
     
     // 插入函数
     public void insert(int val){
+        root = insert(this.root, val);
+    }
+    
+    // 迭代实现插入元素
+    private Node insert(Node root, int val){
         Node newNode = new Node(val);
         if(root == null){      // 如果当前位置为空，将新节点放在当前位置
             root = newNode;
-            return;
+            return root;
         }
         Node parent = root;
         Node current = root;
@@ -39,18 +44,38 @@ public class BinarySearchTree {
                 current = current.left;
                 if(current == null){
                     parent.left = newNode;
-                    return;
+                    break;
                 }
             }
             else{
                 current = current.right;        // 插入值比当前节点值小，应该位于右子树
                 if(current == null){
                     parent.right = newNode;
-                    return;
+                    break;
                 }
             }
         }
+        return root;
     }
+    
+//    // 递归实现插入元素    
+//    public Node insert(Node root, int val){ 
+//        if(root == null){   //root为空则用当前值构成root返回
+//            Node newNode = new Node(val);
+//            root = newNode;
+//            return root;   
+//        }
+//        Node current = root;
+//        // 当前值大于当前节点的值，则插入当前节点左子树中
+//        if(val > current.val){
+//            current.right = insert(current.right, val);
+//        }
+//        // 否则插入当前节点的右子树中
+//        else{
+//            current.left = insert(current.left, val);
+//        }
+//        return root;
+//    }
     
     // 查找函数
     public boolean search(int val){
@@ -107,9 +132,10 @@ public class BinarySearchTree {
         root = deleteMin(root);
     }
     private Node deleteMin(Node current){
-        if(current.left == null){   // 二叉树左子树为空，则最小值为根节点，将根节点指向右节点即可
+        if(current.left == null){  // current结点的左子树为空，则最小值为current节点，将其指向右节点即可
             return current.right;
         }
+     // 否则递归地删除左子树中的最小节
         current.left = deleteMin(current.left);
         return current;
     }
@@ -122,9 +148,10 @@ public class BinarySearchTree {
         root = deleteMax(root);
     }
     private Node deleteMax(Node current){
-        if(current.right == null){        // 右子树为空，则最大值为根节点
+        if(current.right == null){        // 右子树为空，则最大值为current节点
             return current.left;
         }
+        // 递归地删除其右子树最大值结点
         current.right = deleteMax(current.right);
         return current;
     }
